@@ -112,6 +112,7 @@ eventUtil = {
         }
         return result;
     },
+    //序列化表单
     serialize: function(form){
         // <form action="">
         //     <input type="text" value="1">
@@ -166,6 +167,44 @@ eventUtil = {
                     }
             }
             return parts.join('&');
+        }
+    },
+    //处理查询字符串函数
+    addQueryStringArg: function(url,name,value){
+        //url
+        //name 参数名
+        //value 参数值
+        if(url.indexof('?') === -1){
+            url += '?';
+        }else{
+            url += '&'； 
+        }
+        url += encodeURIComponent(name) + '=' +encodeURIComponent(value);
+        return url;
+    },
+    //创建xhr
+    createXhr: function(){
+        if(typeof XMLHttpRequest != 'undefined'){
+            return new XMLHttpRequest();
+        }else if(typeof AxtiveXObject != 'undefined'){
+            //<=ie7
+            if(typeof arguments.callee.activeXString != 'string'){
+                var versions = ['MSXML2.XMLHttp.6.0','MSXML2.XMLHttp.3.0',
+                    'MSXML2.XMLHttp'
+                ],i,len;
+                for(i = 0,len = versions.length;i < len; i++){
+                    try{
+                        new AxtiveXObject(versions[i]);
+                        arguments.callee.activeXString = versions[i];
+                        break;
+                    } catch(ex){
+                        
+                    }
+                }
+            }
+            return new ActiveXObject(arguments.callee.activeXString);
+        }else{
+            throw new Error("No XHR object available");
         }
     }
 }
