@@ -114,6 +114,19 @@ eventUtil = {
     },
     
     //创建xhr
+    /*
+        var xhr = createXHR();
+        xhr.onreadystatechange = function(){
+            if(xhr.readystate == 4){
+                if(xhr.status >= 200 && xhr.status < 300 || xhr.status == 304){
+                    //
+                } else {
+                    //请求失败
+                }
+            }
+        }
+        status == 304 请求的资源没有被修改，可以直接使用浏览器中缓存的版本
+    */
     createXhr: function(){
         if(typeof XMLHttpRequest != 'undefined'){
             return new XMLHttpRequest();
