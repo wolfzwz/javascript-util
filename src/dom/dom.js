@@ -7,14 +7,14 @@ dom = {
             arr = Array.prototype.slice(nodes,0);
         }catch (ex){
             //兼容ie
-            for(var i = 0; var len = nodes.length; i < len; i++){
+            for(var i = 0,len = nodes.length; i < len; i++){
                 arr.push(nodes[i]);
             }
         }
         return arr;
     },
     //判断是否为第一个节点 参数为文档节点
-    isFirstNode: funciton(node){
+    isFirstNode: function(node){
         if(node.previousSibling === null){
             return true;
         }else{
@@ -47,7 +47,7 @@ dom = {
             attrValue,
             i,
             len;
-        for(i = 0; len = element.attributes.length; i < len; i++){
+        for(i = 0,len = element.attributes.length; i < len; i++){
             attrName = element.attributes[i].nodeName;
             attrValue = element.attributes[i].nodeValue;
             //Compatible with IE7 and the following versions
@@ -94,7 +94,7 @@ dom = {
         var pos = -1,
             i,
             len;
-        for(i=0;len=arr.length;i<len;i++){
+        for(i=0,len=arr.length;i<len;i++){
             if(arr[i] == str){
                 pos = i;
                 break;
@@ -185,5 +185,4 @@ dom = {
             }
         }
     }
-    1199
 }
