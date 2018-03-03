@@ -88,21 +88,7 @@ dom = {
         var head = document.getElementsByTagName('head')[0];
         head.appendChild(style);
     },
-    //remove class
-    removeClass: function(ele,str){
-        var arr = ele.className.split(/\s+/);
-        var pos = -1,
-            i,
-            len;
-        for(i=0,len=arr.length;i<len;i++){
-            if(arr[i] == str){
-                pos = i;
-                break;
-            }
-        }
-        arr.splice(pos,1);
-        ele.className = arr.join(/\s/);
-    },
+    
     //get style sheet
     getstylesheet: function(ele){
         return ele.sheet || ele.styleSheet;
@@ -184,5 +170,83 @@ dom = {
                 height: document.documentElement.clientHeight
             }
         }
-    }
+    },
+    hasClass: function(ele, selector) {
+		//ele 元素
+		function stripAndCollapse(value) {
+			//非空白字符
+			//\x20 空格
+			//\t 制表符 \r回车符 \n 换行符 \f 换页符
+			var rnothtmlwhite = (/[^\x20\t\r\n\f]+/g);
+			var tokens = value.match(rnothtmlwhite) || [];
+			return tokens.join(" ");
+		}
+	
+		function getClass(elem) {
+			return elem.getAttribute && elem.getAttribute("class") || "";
+		}
+		var className, elem,
+			i = 0;
+	
+		className = " " + selector + " ";
+		while((elem = ele)) {
+			if(elem.nodeType === 1 &&
+				(" " + stripAndCollapse(getClass(elem)) + " ").indexOf(className) > -1) {
+				return true;
+			}
+		}
+	
+		return false;
+	},
+	addClass: function( value ) {
+		var classes, elem, cur, curValue, clazz, j, finalValue,
+			i = 0;
+
+		if ( isFunction( value ) ) {
+			return this.each( function( j ) {
+				jQuery( this ).addClass( value.call( this, j, getClass( this ) ) );
+			} );
+		}
+
+		classes = classesToArray( value );
+
+		if ( classes.length ) {
+			while ( ( elem = this[ i++ ] ) ) {
+				curValue = getClass( elem );
+				cur = elem.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
+
+				if ( cur ) {
+					j = 0;
+					while ( ( clazz = classes[ j++ ] ) ) {
+						if ( cur.indexOf( " " + clazz + " " ) < 0 ) {
+							cur += clazz + " ";
+						}
+					}
+
+					// Only assign if different to avoid unneeded rendering.
+					finalValue = stripAndCollapse( cur );
+					if ( curValue !== finalValue ) {
+						elem.setAttribute( "class", finalValue );
+					}
+				}
+			}
+		}
+
+		return this;
+	},
+    //remove class
+    removeClass: function(ele,str){
+        var arr = ele.className.split(/\s+/);
+        var pos = -1,
+            i,
+            len;
+        for(i=0,len=arr.length;i<len;i++){
+            if(arr[i] == str){
+                pos = i;
+                break;
+            }
+        }
+        arr.splice(pos,1);
+        ele.className = arr.join(/\s/);
+    },
 }
