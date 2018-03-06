@@ -173,6 +173,9 @@ dom = {
     },
     hasClass: function(ele, selector) {
 		//ele 元素
+		//selector 
+		var eleArr = [ele];
+		
 		function stripAndCollapse(value) {
 			//非空白字符
 			//\x20 空格
@@ -189,7 +192,7 @@ dom = {
 			i = 0;
 	
 		className = " " + selector + " ";
-		while((elem = ele)) {
+		while((elem = eleArr[ i++ ])) {
 			if(elem.nodeType === 1 &&
 				(" " + stripAndCollapse(getClass(elem)) + " ").indexOf(className) > -1) {
 				return true;
@@ -198,20 +201,40 @@ dom = {
 	
 		return false;
 	},
-	addClass: function( value ) {
+	addClass: function(ele, value ) {
+		//ele 单个元素
+		//value 字符串或者数组
 		var classes, elem, cur, curValue, clazz, j, finalValue,
 			i = 0;
-
-		if ( isFunction( value ) ) {
-			return this.each( function( j ) {
-				jQuery( this ).addClass( value.call( this, j, getClass( this ) ) );
-			} );
+		
+		//ele 元素
+		var eleArr = [ele]
+			
+		var rnothtmlwhite = (/[^\x20\t\r\n\f]+/g);
+		
+	 	function getClass( elem ) {
+			return elem.getAttribute && elem.getAttribute( "class" ) || "";
+		}
+	 	
+	 	function classesToArray( value ) {
+			if ( Array.isArray( value ) ) {
+				return value;
+			}
+			if ( typeof value === "string" ) {
+				return value.match( rnothtmlwhite ) || [];
+			}
+			return [];
+		}
+	 	
+	 	function stripAndCollapse(value) {
+			var tokens = value.match(rnothtmlwhite) || [];
+			return tokens.join(" ");
 		}
 
 		classes = classesToArray( value );
 
 		if ( classes.length ) {
-			while ( ( elem = this[ i++ ] ) ) {
+			while ( ( elem = eleArr[ i++ ] ) ) {
 				curValue = getClass( elem );
 				cur = elem.nodeType === 1 && ( " " + stripAndCollapse( curValue ) + " " );
 
@@ -231,8 +254,6 @@ dom = {
 				}
 			}
 		}
-
-		return this;
 	},
     //remove class
     removeClass: function(ele,str){
@@ -247,6 +268,53 @@ dom = {
             }
         }
         arr.splice(pos,1);
-        ele.className = arr.join(/\s/);
+        ele.className = arr.join(" ");
     },
+    toggleClass: function(ele,value,stateVal ) {
+    	//ele 单个元素
+    	//value 切换的元素类名 可以是字符串或者数组
+    	//value 为布尔值时移除所有类名
+    	var eleArr = [ele];
+		var type = typeof value,
+			isValidValue = type === "string" || Array.isArray( value );
+		
+		var rnothtmlwhite = (/[^\x20\t\r\n\f]+/g);
+		
+	 	function getClass( elem ) {
+			return elem.getAttribute && elem.getAttribute( "class" ) || "";
+		}
+	 	
+	 	function classesToArray( value ) {
+			if ( Array.isArray( value ) ) {
+				return value;
+			}
+			if ( typeof value === "string" ) {
+				return value.match( rnothtmlwhite ) || [];
+			}
+			return [];
+		}
+		
+		var that = this;
+
+		return eleArr.map( function(self) {
+			var className, i, self, classNames;
+
+			if ( isValidValue ) {
+
+				// Toggle individual class names
+				i = 0;
+				classNames = classesToArray( value );
+
+				while ( ( className = classNames[ i++ ] ) ) {
+
+					// Check each className given, space separated list
+					if ( that.hasClass(self,className ) ) {
+						that.removeClass(self, className );
+					} else {
+						that.addClass(self, className );
+					}
+				}
+			}
+		} );
+	}
 }

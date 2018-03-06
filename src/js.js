@@ -137,3 +137,6 @@
 	var a = true && 2;
 	if(true && (a=true)){}
 	? :
+	isValidValue = type === "string" || Array.isArray( value );
+//js
+	https://www.cnblogs.com/laden666666/p/6238748.html
