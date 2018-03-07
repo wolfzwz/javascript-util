@@ -1,7 +1,7 @@
 
 var util = {
   // 日期格式化
-  dateFormat: fucntion(){
+  dateFormat: function(){
     Date.prototype.Format = function (fmt) {
       var o = {
         "M+": this.getMonth() + 1, //月份
