@@ -1,5 +1,5 @@
 
-dom = {
+export const dom = {
     //将nodelist类数组对象转成数组
     convertToArray: function(nodes){
         var arr = null;
