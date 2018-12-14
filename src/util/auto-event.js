@@ -1,3 +1,13 @@
+/* 
+    // var event = new EventTarget();
+    // event.addEvents({
+    //     alert:function(){
+    //         alert('success');
+    //     }
+    // });
+    // event.fireEvents(['alert']);
+    // event.removeEvents(['alert']);
+*/
 var EventTarget = function(){
     this.listener = {};
 };

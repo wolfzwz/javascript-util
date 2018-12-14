@@ -1,5 +1,5 @@
 
-const util = {
+export const util = {
   // 日期格式化
   dateFormat: function(){
     Date.prototype.Format = function (fmt) {
@@ -90,6 +90,3 @@ const util = {
   },
 	
 };
-
-
-export default util;
