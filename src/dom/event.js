@@ -1,3 +1,13 @@
+/* 
+    // var event = new EventTarget();
+    // event.addEvents({
+    //     alert:function(){
+    //         alert('success');
+    //     }
+    // });
+    // event.fireEvents(['alert']);
+    // event.removeEvents(['alert']);
+*/
 eventUtil = {
     // add event
     addHandler: function(el,type,handler){
