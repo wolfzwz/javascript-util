@@ -114,7 +114,7 @@ eventUtil = {
         //select 为select元素
         var result = new Array();
         var option = null;
-        for(var i = 0,len = select.options.length; i++){
+        for(var i = 0,len = select.options.length; i++;){
             option = select.options[i];
             if(option.selected){
                 result.push(option);
