@@ -1,8 +1,8 @@
 
-const digitsRE = /(\d{3})(?=\d)/g
-
 export const currency = {
+  // value 数值 currency 币种符号 decimals 小数位数 format('12315','$',2) "$12,315.00"
   format (value, currency, decimals) {
+    const digitsRE = /(\d{3})(?=\d)/g
     value = parseFloat(value)
     if (!isFinite(value) || (!value && value !== 0)) return ''
     currency = currency != null ? currency : '$'

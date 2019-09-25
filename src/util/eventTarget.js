@@ -8,7 +8,7 @@
     // event.fireEvents(['alert']);
     // event.removeEvents(['alert']);
 */
-var EventTarget = function(){
+export const  EventTarget = function(){
     this.listener = {};
 };
 EventTarget.prototype = {

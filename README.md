@@ -1,6 +1,7 @@
 # javascript-util
 # javacript原生语法
 # 运行方式
+  node >= 8.9.0
 	webpack --watch 监听文件更改
 	webpack -p 打包文件
 # 常用工具库
