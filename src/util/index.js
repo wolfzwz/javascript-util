@@ -1,4 +1,4 @@
-export { util } from './util';
+
 export { currency } from './currency';
 export { EventTarget } from './eventTarget';
 // ip 1.0.0.0/www.baidu.com 可以为ip或者域名
