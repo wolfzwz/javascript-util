@@ -130,6 +130,7 @@ export const serialize = form => {
     return parts.join('&');
   }
 };
+
 //处理查询字符串函数
 export const addQueryStringArg = (url, name, value) => {
   //url
@@ -142,6 +143,13 @@ export const addQueryStringArg = (url, name, value) => {
   }
   url += encodeURIComponent(name) + '=' + encodeURIComponent(value);
   return url;
+};
+// 获得查询字符串
+export const getQueryString(name) {
+  var reg = new RegExp('(^|&)' + name + '=([^&]*)(&|$)');
+  var r = window.location.search.substr(1).match(reg);
+  if (r != null) return unescape(r[2]);
+  return null;
 };
 // 判断浏览器
 export const getBrowserType = () => {
